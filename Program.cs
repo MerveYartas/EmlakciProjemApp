@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.ComponentModel;
 
 namespace EmlakciProjemApp
 {
@@ -7,6 +8,9 @@ namespace EmlakciProjemApp
         static void Main(string[] args)
         {
             Console.WriteLine("EMLAKCI UYGULAMAMIZA HOŞGELDİNİZ\n");
+
+            List<KiralikEv> kiralikEvListesi = new List<KiralikEv>();
+            List<SatilikEv> satilikEvListesi = new List<SatilikEv>();
 
             bool devam = true;
             do 
@@ -39,6 +43,7 @@ namespace EmlakciProjemApp
                     else if (islem == 2)
                     {
                         KiralikEv yeniki = KiBilgi();
+                        kiralikEvListesi.Add(yeniki);
                         kayitki("kiralık_ev.txt", yeniki);
                     }
                     else
@@ -72,6 +77,7 @@ namespace EmlakciProjemApp
                     else if (islem == 2)
                     {
                         SatilikEv se = SaBilgi();
+                        satilikEvListesi.Add(se);
                         kayitsa("satilik_ev.txt", se);
                     }
                     else
@@ -161,26 +167,19 @@ namespace EmlakciProjemApp
                 writer.WriteLine("---------------------------");
             }
         }
+   
         static bool dosyakontrol(string dosyayolu)
         {
             if (File.Exists(dosyayolu))
             {
                 string[] satirlar = File.ReadAllLines(dosyayolu);
-                if (satirlar.Length == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return satirlar.Length == 0;
             }
             else
             {
                 return true;
             }
         }
-
     }
 
         public class Ev
